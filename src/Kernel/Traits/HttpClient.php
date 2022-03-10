@@ -1,13 +1,13 @@
 <?php
 
 declare(strict_types=1);
-namespace Lonquan\EasyLark\Kernel\Traits;
+namespace AntCool\EasyLark\Kernel\Traits;
 
 use GuzzleHttp\Client as Http;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
-use Lonquan\EasyLark\Kernel\Exceptions\ResponseInvalidException;
-use Lonquan\EasyLark\Kernel\Middleware\RequestLogMiddleware;
+use AntCool\EasyLark\Kernel\Exceptions\ResponseInvalidException;
+use AntCool\EasyLark\Kernel\Middleware\RequestLogMiddleware;
 
 trait HttpClient
 {

@@ -1,10 +1,10 @@
 <?php
 
 declare(strict_types=1);
-namespace Lonquan\EasyLark\Kernel\Middleware;
+namespace AntCool\EasyLark\Kernel\Middleware;
 
-use Lonquan\EasyLark\Kernel\Config;
-use Lonquan\EasyLark\Kernel\Support\Logger;
+use AntCool\EasyLark\Kernel\Config;
+use AntCool\EasyLark\Kernel\Support\Logger;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 

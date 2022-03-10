@@ -17,7 +17,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Lonquan\\EasyLark\\": "src"
+      "AntCool\\EasyLark\\": "src"
     }
   }
 }

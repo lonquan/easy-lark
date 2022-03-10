@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-namespace Lonquan\EasyLark\Kernel\Contracts;
+namespace AntCool\EasyLark\Kernel\Contracts;
 
 interface AccessToken
 {

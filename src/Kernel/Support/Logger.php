@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
-namespace Lonquan\EasyLark\Kernel\Support;
+namespace AntCool\EasyLark\Kernel\Support;
 
-use Lonquan\EasyLark\Kernel\Config;
+use AntCool\EasyLark\Kernel\Config;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger as MonologLogger;
 

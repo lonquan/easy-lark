@@ -1,12 +1,12 @@
 <?php
 
 declare(strict_types=1);
-namespace Lonquan\EasyLark;
+namespace AntCool\EasyLark;
 
-use Lonquan\EasyLark\Kernel\Client;
-use Lonquan\EasyLark\Kernel\Config;
-use Lonquan\EasyLark\Kernel\Server;
-use Lonquan\EasyLark\Kernel\Support\Logger;
+use AntCool\EasyLark\Kernel\Client;
+use AntCool\EasyLark\Kernel\Config;
+use AntCool\EasyLark\Kernel\Server;
+use AntCool\EasyLark\Kernel\Support\Logger;
 
 class Application
 {

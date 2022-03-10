@@ -1,12 +1,12 @@
 <?php
 
 declare(strict_types=1);
-namespace Lonquan\EasyLark\Kernel\Middleware;
+namespace AntCool\EasyLark\Kernel\Middleware;
 
-use Lonquan\EasyLark\Kernel\Config;
-use Lonquan\EasyLark\Kernel\Contracts\AccessToken;
-use Lonquan\EasyLark\Kernel\Support\Cache;
-use Lonquan\EasyLark\Kernel\Support\Logger;
+use AntCool\EasyLark\Kernel\Config;
+use AntCool\EasyLark\Kernel\Contracts\AccessToken;
+use AntCool\EasyLark\Kernel\Support\Cache;
+use AntCool\EasyLark\Kernel\Support\Logger;
 use Psr\Http\Message\RequestInterface;
 
 class AccessTokenMiddleware
