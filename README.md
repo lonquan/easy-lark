@@ -22,11 +22,11 @@ $config = [
 
     'timeout'      => 8,
     'base_url'     => 'https://open.feishu.cn',
-    'access_token' => \Lonquan\EasyLark\Kernel\Support\AccessToken::class,
+    'access_token' => \AntCool\EasyLark\Kernel\Support\AccessToken::class,
     'storage_path' => __DIR__.'/storage',
 ];
 
-$app = new \Lonquan\EasyLark\Application($config);
+$app = new \AntCool\EasyLark\Application($config);
 
 try {
     $response = $app->getClient()->postJson('/open-apis/authen/v1/access_token', [
