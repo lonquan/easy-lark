@@ -5,7 +5,7 @@
 ## Installing
 
 ```shell
-$ composer require antcool/easy-lark -vvv
+$ composer require antcool/easy-lark:dev-master -vvv
 ```
 
 ## Usage
