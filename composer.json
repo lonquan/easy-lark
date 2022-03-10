@@ -1,0 +1,23 @@
+{
+  "name": "antcool/easy-lark",
+  "description": "PHP SDK for Lark",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "龙权",
+      "email": "root@antcool.com"
+    }
+  ],
+  "require": {
+    "ext-curl": "*",
+    "monolog/monolog": "^2.2",
+    "guzzlehttp/guzzle": "^7.0",
+    "symfony/cache": "^6.0",
+    "psr/simple-cache": "^3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Lonquan\\EasyLark\\": "src"
+    }
+  }
+}
