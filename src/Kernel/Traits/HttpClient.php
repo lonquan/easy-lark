@@ -13,7 +13,7 @@ trait HttpClient
 {
     protected Http $http;
 
-    public function getJson(string $uri, array $query): array
+    public function getJson(string $uri, array $query = []): array
     {
         return $this->request(method: 'GET', uri: $uri, options: ['query' => $query]);
     }
