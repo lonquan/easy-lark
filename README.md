@@ -1,11 +1,11 @@
-<h1 align="center"> easy-lark </h1>
+<h1 align="center"> EasyLark </h1>
 
 <p align="center"> PHP SDK for Lark.</p>
 
 ## Installing
 
 ```shell
-$ composer require antcool/easy-lark:dev-master -vvv
+$ composer require antcool/easy-lark -vvv
 ```
 
 ## Usage
@@ -29,6 +29,8 @@ $config = [
 $app = new \AntCool\EasyLark\Application($config);
 
 try {
+   // $response = $app->getClient()->getJson('uri', $query = []);
+   
     $response = $app->getClient()->postJson('/open-apis/authen/v1/access_token', [
         'grant_type' => 'authorization_code',
         'code'       => 'dDieky8JXDywpnOlhR8ydf',

@@ -13,11 +13,16 @@ trait HttpClient
 {
     protected Http $http;
 
+    public function getJson(string $uri, array $query): array
+    {
+        return $this->request(method: 'GET', uri: $uri, options: ['query' => $query]);
+    }
+
     /**
      * @throws GuzzleException
      * @throws ResponseInvalidException
      */
-    public function postJson(string $uri, $data = [], $query = [])
+    public function postJson(string $uri, array $data = [], array $query = []): array
     {
         return $this->request(method: 'POST', uri: $uri, options: [
             'query' => $query,
