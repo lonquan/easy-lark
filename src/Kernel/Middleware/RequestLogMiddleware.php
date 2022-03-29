@@ -47,6 +47,7 @@ class RequestLogMiddleware
         $body = $request->getBody();
         $body->rewind();
         $this->logger?->info('Request', [
+            'host'    => $request->getUri()->getHost(),
             'url'     => $request->getRequestTarget(),
             'method'  => $request->getMethod(),
             'headers' => $request->getHeaders(),

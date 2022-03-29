@@ -37,6 +37,11 @@ try {
     ]);
 
     var_dump($response);
+    
+    // 飞书审批
+    $app->getClient()->postJson('https://www.feishu.cn/approval/openapi/v2/approval/get', [
+        'approval_code' => '376DA07B-XXXX-XXXX-XXXX-98B7B907C6B3',
+    ]);
 } catch (Throwable $exception) {
     echo $exception->getMessage();
 }
