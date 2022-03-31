@@ -1,17 +1,17 @@
 <?php
-
 declare(strict_types=1);
+
 namespace AntCool\EasyLark\Kernel;
 
+use AntCool\EasyLark\Middleware\AccessTokenMiddleware;
+use AntCool\EasyLark\Support\Logger;
+use AntCool\EasyLark\Traits\InteractWithHttpClient;
 use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\HandlerStack;
-use AntCool\EasyLark\Kernel\Middleware\AccessTokenMiddleware;
-use AntCool\EasyLark\Kernel\Support\Logger;
-use AntCool\EasyLark\Kernel\Traits\HttpClient;
 
 class Client
 {
-    use HttpClient;
+    use InteractWithHttpClient;
 
     public function __construct(protected Config $config, protected ?Logger $logger)
     {

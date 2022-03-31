@@ -1,21 +1,25 @@
 <?php
-
 declare(strict_types=1);
-namespace AntCool\EasyLark\Kernel\Middleware;
 
+namespace AntCool\EasyLark\Middleware;
+
+use AntCool\EasyLark\Interfaces\AccessTokenInterface;
 use AntCool\EasyLark\Kernel\Config;
-use AntCool\EasyLark\Kernel\Contracts\AccessToken;
-use AntCool\EasyLark\Kernel\Support\Cache;
-use AntCool\EasyLark\Kernel\Support\Logger;
+use AntCool\EasyLark\Support\AccessToken;
+use AntCool\EasyLark\Support\Logger;
 use Psr\Http\Message\RequestInterface;
 
 class AccessTokenMiddleware
 {
-    protected AccessToken $accessToken;
+    protected AccessTokenInterface $accessToken;
 
     public function __construct(protected Config $config, protected ?Logger $logger)
     {
-        $this->accessToken = new ($this->config->get('access_token'))($this->config, $this->logger);
+        $class = $this->config->access_token && class_exists($this->config->access_token)
+            ? $this->config->access_token
+            : AccessToken::class;
+
+        $this->accessToken = new ($class)($this->config, $this->logger);
     }
 
     public function __invoke(callable $handler): callable
@@ -23,7 +27,7 @@ class AccessTokenMiddleware
         return function (RequestInterface $request, array $options) use ($handler) {
             $request = $request->withHeader(
                 'Authorization',
-                'Bearer '.$this->accessToken->getToken()
+                'Bearer ' . $this->accessToken->getToken()
             );
 
             return $handler($request, $options);

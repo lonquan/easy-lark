@@ -1,15 +1,16 @@
 <?php
-
 declare(strict_types=1);
-namespace AntCool\EasyLark\Kernel\Traits;
 
+namespace AntCool\EasyLark\Traits;
+
+use AntCool\EasyLark\Middleware\RequestLogMiddleware;
 use GuzzleHttp\Client as Http;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\HandlerStack;
-use AntCool\EasyLark\Kernel\Exceptions\ResponseInvalidException;
-use AntCool\EasyLark\Kernel\Middleware\RequestLogMiddleware;
+use AntCool\EasyLark\Exceptions\ResponseInvalidException;
 
-trait HttpClient
+trait InteractWithHttpClient
 {
     protected Http $http;
 
@@ -26,7 +27,7 @@ trait HttpClient
     {
         return $this->request(method: 'POST', uri: $uri, options: [
             'query' => $query,
-            'json'  => $data,
+            'json' => $data,
         ]);
     }
 
@@ -42,7 +43,7 @@ trait HttpClient
         $response = json_decode($body->getContents(), true);
 
         if (($response['code'] ?? '') !== 0) {
-            throw new ResponseInvalidException($response['msg'] ?? '', $response['code'] ?? 0);
+            throw new ResponseInvalidException($response['msg'] ?? 'Incorrect response.', $response['code'] ?? 0);
         }
 
         return $response;
@@ -51,16 +52,23 @@ trait HttpClient
     protected function createHttp(): self
     {
         if (empty($this->http)) {
-            $this->http = new Http(
-                [
-                    'base_uri' => $this->config->get('base_url', 'https://open.feishu.cn'),
-                    'timeout'  => $this->config->get('timeout', 30),
-                    'handler'  => $this->withHandleStacks(),
-                ]
-            );
+            $this->http = new Http([
+                'base_uri' => $this->config->http['base_uri'] ?? 'https://open.feishu.cn',
+                'timeout' => $this->config->http['timeout'] ?? 30,
+                'handler' => $this->withHandleStacks(),
+            ]);
         }
 
         return $this;
+    }
+
+    protected function withHandleStacks(): HandlerStack
+    {
+        $stack = new HandlerStack();
+        $stack->setHandler(new CurlHandler());
+        $this->withRequestLogMiddleware($stack);
+
+        return $stack;
     }
 
     protected function withRequestLogMiddleware(HandlerStack $stock): void

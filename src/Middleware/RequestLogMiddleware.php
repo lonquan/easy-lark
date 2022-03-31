@@ -1,10 +1,10 @@
 <?php
-
 declare(strict_types=1);
-namespace AntCool\EasyLark\Kernel\Middleware;
+
+namespace AntCool\EasyLark\Middleware;
 
 use AntCool\EasyLark\Kernel\Config;
-use AntCool\EasyLark\Kernel\Support\Logger;
+use AntCool\EasyLark\Support\Logger;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -33,25 +33,29 @@ class RequestLogMiddleware
 
     protected function logResponse(ResponseInterface $response): void
     {
-        $body = $response->getBody();
-        $body->rewind();
-        $this->logger?->info('Response', [
-            'status'  => $response->getStatusCode(),
-            'headers' => $response->getHeaders(),
-            'body'    => $body->getContents(),
-        ]);
+        if ($this->logger instanceof Logger) {
+            $body = $response->getBody();
+            $body->rewind();
+            $this->logger->info('Response ===<<<', [
+                'status' => $response->getStatusCode(),
+                'headers' => $response->getHeaders(),
+                'body' => $body->getContents(),
+            ]);
+        }
     }
 
     protected function logRequest(RequestInterface $request): void
     {
-        $body = $request->getBody();
-        $body->rewind();
-        $this->logger?->info('Request', [
-            'host'    => $request->getUri()->getHost(),
-            'url'     => $request->getRequestTarget(),
-            'method'  => $request->getMethod(),
-            'headers' => $request->getHeaders(),
-            'body'    => $body->getContents(),
-        ]);
+        if ($this->logger instanceof Logger) {
+            $body = $request->getBody();
+            $body->rewind();
+            $this->logger->info('Request ===>>>' . PHP_EOL, [
+                'host' => $request->getUri()->getHost(),
+                'url' => $request->getRequestTarget(),
+                'method' => $request->getMethod(),
+                'headers' => $request->getHeaders(),
+                'body' => $body->getContents(),
+            ]);
+        }
     }
 }

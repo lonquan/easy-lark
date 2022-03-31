@@ -1,21 +1,19 @@
 <?php
+declare(strict_types=1);
 
-namespace AntCool\EasyLark\Kernel\Support;
+namespace AntCool\EasyLark\Support;
 
+use AntCool\EasyLark\Interfaces\AccessTokenInterface;
+use AntCool\EasyLark\Traits\InteractWithHttpClient;
 use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Handler\CurlHandler;
-use GuzzleHttp\HandlerStack;
 use AntCool\EasyLark\Kernel\Config;
-use AntCool\EasyLark\Kernel\Contracts\AccessToken as AccessTokenInterface;
-use AntCool\EasyLark\Kernel\Traits\HttpClient;
-use Psr\SimpleCache\InvalidArgumentException;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Psr16Cache;
 use Psr\SimpleCache\CacheInterface;
 
 class AccessToken implements AccessTokenInterface
 {
-    use HttpClient;
+    use InteractWithHttpClient;
 
     protected CacheInterface $cache;
 
@@ -23,15 +21,14 @@ class AccessToken implements AccessTokenInterface
     {
         $this->cache = new Psr16Cache(
             new FilesystemAdapter(
-                namespace:       'easy_lark',
+                namespace: 'easy_lark',
                 defaultLifetime: 7200,
-                directory:       $this->config->get('storage_path').'/cache'
+                directory: $this->config->get('storage_path', '/tmp/easy-lark') . '/cache'
             )
         );
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws GuzzleException
      */
     public function getToken(): string
@@ -43,22 +40,13 @@ class AccessToken implements AccessTokenInterface
         }
 
         $response = $this->createHttp()->postJson('/open-apis/auth/v3/app_access_token/internal', [
-            'app_id'     => $this->config->get('app_id'),
+            'app_id' => $this->config->get('app_id'),
             'app_secret' => $this->config->get('app_secret'),
         ]);
 
         $this->cache->set($this->getKey(), $response['app_access_token'], $response['expire']);
 
         return $response['app_access_token'];
-    }
-
-    public function withHandleStacks(): HandlerStack
-    {
-        $stack = new HandlerStack();
-        $stack->setHandler(new CurlHandler());
-        $this->withRequestLogMiddleware($stack);
-
-        return $stack;
     }
 
     protected function getKey(): string

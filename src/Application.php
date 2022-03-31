@@ -1,12 +1,13 @@
 <?php
 
 declare(strict_types=1);
+
 namespace AntCool\EasyLark;
 
 use AntCool\EasyLark\Kernel\Client;
 use AntCool\EasyLark\Kernel\Config;
 use AntCool\EasyLark\Kernel\Server;
-use AntCool\EasyLark\Kernel\Support\Logger;
+use AntCool\EasyLark\Support\Logger;
 
 class Application
 {
@@ -18,9 +19,6 @@ class Application
 
     protected ?Logger $logger = null;
 
-    /**
-     * @throws Kernel\Exceptions\InvalidArgumentException
-     */
     public function __construct(array $config)
     {
         $this->config = new Config($config);
