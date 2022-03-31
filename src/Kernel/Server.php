@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AntCool\EasyLark\Kernel;
 
 use AntCool\EasyLark\Exceptions\BadRequestException;
 use AntCool\EasyLark\Exceptions\InvalidArgumentException;
-use AntCool\EasyLark\Interfaces\EventInterface;
 use AntCool\EasyLark\Kernel\Event;
 use AntCool\EasyLark\Support\Logger;
 use AntCool\EasyLark\Support\Utils;
@@ -23,7 +23,7 @@ class Server
 
     protected string $rawBody;
 
-    public function __construct(protected Config $config, protected Logger $logger)
+    public function __construct(protected Config $config, protected ?Logger $logger)
     {
     }
 
