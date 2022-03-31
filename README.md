@@ -1,6 +1,7 @@
 <h1 align="center"> EasyLark - 飞书开放平台 PHP SDK </h1>
 
 <p align="center"> PHP SDK for Lark Open.</p>
+<p align="center">Overtrue! Respect!</p>
 
 ## 文档链接
 
@@ -149,6 +150,21 @@ $server->addEventListener('approval_instance', function (Event $event, \Closure 
 
 // 别忘了调用 $server->serve();
 return $server->serve();
+```
+
+### 自定义 AccessToken
+
+```php
+class YourAccessToken implements AccessTokenInterface{
+    public function getToken():string
+    {
+        
+    }
+}
+
+$config = [
+    'access_token' => YourAccessToken::class
+];
 ```
 
 ## TODO
