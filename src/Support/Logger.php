@@ -15,7 +15,7 @@ class Logger
     {
         $this->logger = new MonologLogger('EasyLark');
         $this->logger->pushHandler(
-            new RotatingFileHandler($this->config->get('cache_path', '/tmp/easy-lark/cache'), 30)
+            new RotatingFileHandler($this->config->get('runtime_path', '/tmp/easy-lark') . '/logs/easy_lark.log', 30)
         );
     }
 

@@ -23,7 +23,7 @@ class AccessToken implements AccessTokenInterface
             new FilesystemAdapter(
                 namespace: 'easy_lark',
                 defaultLifetime: 7200,
-                directory: $this->config->get('storage_path', '/tmp/easy-lark') . '/cache'
+                directory: $this->config->get('runtime_path', '/tmp/easy-lark') . '/cache/'
             )
         );
     }
@@ -33,9 +33,7 @@ class AccessToken implements AccessTokenInterface
      */
     public function getToken(): string
     {
-        $token = $this->cache->get($this->getKey());
-
-        if ($token) {
+        if ($token = $this->cache->get($this->getKey(), false)) {
             return $token;
         }
 

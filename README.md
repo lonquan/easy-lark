@@ -27,9 +27,7 @@ $config = [
     // 开启 debug 将在 logger_file 写入请求日志
     'debug' => true,
     // 指定日志文件
-    'logger_file' => '/tmp/easy-lark/logs/easy_lark.log',
-    // 默认 AccessToken 使用文件进行缓存
-    'cache_path' => '/tmp/easy-lark/cache',
+    'runtime_path' => '/tmp/easy-lark',
 
     // 应用信息
     'app_id' => '',
@@ -68,8 +66,7 @@ $config = $app->getConfig();
 ```php
 $config = [
     'debug' => env('APP_DEBUG', false),
-    'logger_file' => storage_path('lark/logs/easy_lark.log'),
-    'cache_path' => storage_path('lark/cache'),
+    'runtime_path' => storage_path('lark'),
 
     'app_id' => '',
     'app_secret' => '',
@@ -122,6 +119,7 @@ try {
 ```
 
 ### 事件订阅
+
 > 需在应用后台订阅, 审批事件订阅后需对 Approval Code 进行订阅
 
 ```php
