@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AntCool\EasyLark\Kernel;
@@ -12,7 +13,7 @@ class Event implements EventInterface, \ArrayAccess
 {
     use HasAttributes;
 
-    protected bool $encrypted;
+    protected bool $encrypted = false;
 
     public function __construct(array $attributes, ?string $encryptKey = null)
     {
@@ -29,7 +30,7 @@ class Event implements EventInterface, \ArrayAccess
         $this->attributes = $attributes;
     }
 
-    public function encrypted(): bool
+    public function isEncrypted(): bool
     {
         return $this->encrypted;
     }
@@ -52,12 +53,12 @@ class Event implements EventInterface, \ArrayAccess
     {
         return match ($this->getEvevntVersion()) {
             '1.0' => [
-                'event_id' => $this->getEventId(),
-                'event_type' => $this->getEventType(),
+                'event_id'    => $this->getEventId(),
+                'event_type'  => $this->getEventType(),
                 'create_time' => $this->getCreateTime(),
-                'token' => $this->getToken(),
-                'app_id' => $this->get('event')['app_id'] ?? null,
-                'tenant_key' => $this->get('event')['tenant_key'] ?? null,
+                'token'       => $this->getToken(),
+                'app_id'      => $this->get('event')['app_id'] ?? null,
+                'tenant_key'  => $this->get('event')['tenant_key'] ?? null,
             ],
             '2.0' => $this->get('header', []),
         };
