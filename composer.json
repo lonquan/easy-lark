@@ -11,6 +11,7 @@
   "require": {
     "php": "^8.0",
     "ext-curl": "*",
+    "ext-openssl": "*",
     "monolog/monolog": "^2.2",
     "guzzlehttp/guzzle": "^7.0",
     "symfony/cache": "^5.4|^6.0",

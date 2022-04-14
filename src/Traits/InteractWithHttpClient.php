@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AntCool\EasyLark\Traits;
 
 use AntCool\EasyLark\Middleware\RequestLogMiddleware;
+use AntCool\EasyLark\Support\File;
 use GuzzleHttp\Client as Http;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Handler\CurlHandler;
@@ -27,7 +29,15 @@ trait InteractWithHttpClient
     {
         return $this->request(method: 'POST', uri: $uri, options: [
             'query' => $query,
-            'json' => $data,
+            'json'  => $data,
+        ]);
+    }
+
+    public function uploadFile(string $uri, File $file, array $data = [], array $query = []): array
+    {
+        return $this->request(method: 'POST', uri: $uri, options: [
+            'query'     => $query,
+            'multipart' => $this->buildForm($file, $data),
         ]);
     }
 
@@ -49,13 +59,26 @@ trait InteractWithHttpClient
         return $response;
     }
 
+    protected function buildForm(File $file, array $data): array
+    {
+        $form = [];
+
+        foreach ($data as $key => $value) {
+            $form[] = ['name' => $key, 'contents' => $value];
+        }
+
+        $form[] = ['name' => 'file', 'contents' => $file->getContents()];
+
+        return $form;
+    }
+
     protected function createHttp(): self
     {
         if (empty($this->http)) {
             $this->http = new Http([
                 'base_uri' => $this->config->http['base_uri'] ?? 'https://open.feishu.cn',
-                'timeout' => $this->config->http['timeout'] ?? 30,
-                'handler' => $this->withHandleStacks(),
+                'timeout'  => $this->config->http['timeout'] ?? 30,
+                'handler'  => $this->withHandleStacks(),
             ]);
         }
 

@@ -114,6 +114,14 @@ try {
     $app->getClient()->postJson('https://www.feishu.cn/approval/openapi/v2/approval/get', [
         'approval_code' => '376DA07B-XXXX-XXXX-XXXX-98B7B907C6B3',
     ]);
+    
+    // 文件上传
+    $file = new \AntCool\EasyLark\Support\File('file path');
+    $app->getClient()->uploadFile(
+        '/open-apis/im/v1/files' // 消息与群组消息文件上传,
+        $file,
+        ['file_type' => $file->extension, 'file_name' => $file->name]
+    );
 } catch (Throwable $exception) {
     echo $exception->getMessage();
 }

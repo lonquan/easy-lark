@@ -20,7 +20,7 @@ class Utils
         $decrypt = openssl_decrypt($encrypt, 'AES-256-CBC', hash('sha256', $encryptKey, true), OPENSSL_RAW_DATA, $iv);
 
         if ($decrypt === false) {
-            throw new InvalidArgumentException('Decrypt failed: ' . openssl_error_string() . '.)');
+            throw new InvalidArgumentException('Decrypt failed: ' . openssl_error_string() . '.');
         }
 
         return $decrypt;

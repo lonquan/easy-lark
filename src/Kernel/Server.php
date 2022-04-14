@@ -66,7 +66,7 @@ class Server
     protected function validateHeaderSign(): bool
     {
         if (!($encryptKey = $this->config->event['encrypt_key'] ?? false)) {
-            throw new InvalidArgumentException('Encrypt key is required');
+            throw new InvalidArgumentException('Encrypt key is required.');
         }
 
         $signature = Utils::signature(
@@ -77,7 +77,7 @@ class Server
         );
 
         if ($signature !== $this->getRequest()->getHeaderLine('X-Lark-Signature')) {
-            throw new BadRequestException('Invalid signature');
+            throw new BadRequestException('Invalid signature.');
         }
 
         return true;
