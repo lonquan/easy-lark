@@ -33,6 +33,34 @@ trait InteractWithHttpClient
         ]);
     }
 
+    /**
+     * @throws GuzzleException
+     * @throws ResponseInvalidException
+     */
+    public function putJson(string $uri, array $data = [], array $query = []): array
+    {
+        return $this->request(method: 'PUT', uri: $uri, options: [
+            'query' => $query,
+            'json'  => $data,
+        ]);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws ResponseInvalidException
+     */
+    public function deleteJson(string $uri, array $data = [], array $query = []): array
+    {
+        return $this->request(method: 'DELETE', uri: $uri, options: [
+            'query' => $query,
+            'json'  => $data,
+        ]);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws ResponseInvalidException
+     */
     public function uploadFile(string $uri, File $file, array $data = [], array $query = []): array
     {
         return $this->request(method: 'POST', uri: $uri, options: [
